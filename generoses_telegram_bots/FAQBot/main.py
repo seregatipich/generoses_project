@@ -1,4 +1,4 @@
-from asyncio import run 
+from asyncio import run
 from logging import basicConfig, INFO
 from sys import stdout
 from os import getenv
@@ -9,8 +9,9 @@ from aiogram.filters import Command, CommandStart
 from aiogram.methods.answer_inline_query import AnswerInlineQuery
 from aiogram.types import Message
 from aiogram.utils.markdown import hbold
-from aiogram.utils.keyboard import InlineKeyboardBuilder
 from dotenv import load_dotenv
+
+from keyboards import create_inline_kb_main
 
 
 load_dotenv()
@@ -20,32 +21,40 @@ dp = Dispatcher()
 router = Router()
 
 
-CATEGORIES = {"btn1":[], "bt2":[], "btn3":[]}
+main_menu_buttons = [
+    'Пожертвования',
+    'Еще что-то',
+    'И еще что-то',
+]
 
 
 @dp.message(CommandStart())
-async def command_start_handler(message: Message) -> None:
-    builder = InlineKeyboardBuilder()
-    for index in range(1, 4):
-        builder.button(text=f"btn{index}", callback_data=f"btn{index}")
-        builder.adjust(2, 2)
-    await message.answer(f"Привет! Это бот, который поможет вам разобраться в проблеме с GENEROSES. Чтобы начать, нажмите /start", reply_markup=builder.as_markup())
+async def welcome(message: Message) -> None:
+    await message.answer(
+        f"Привет! Это бот, который поможет вам разобраться в проблеме с GENEROSES. Чтобы начать, выберете пункт меню, который вам нужен",
+        reply_markup=create_inline_kb_main(main_menu_buttons)
+    )
 
 
-@dp.callback_query() #(lambda c: c.data == 'btn1')
-async def handle_help(callback_query: types.CallbackQuery) -> None:
-    if callback_query.data == "btn1":
-        await callback_query.message.answer(text="BTN1")
-    elif callback_query.data == "btn2":
-        await callback_query.message.answer(text="BTN2")
-    elif callback_query.data == "btn3":
-        await callback_query.message.answer(text="BTN3")
-    await callback_query.answer()
-    
+@dp.callback_query(lambda c: c.data == 'btn0')
+async def handle_button_one(callback_query: types.CallbackQuery) -> None:
+    await callback_query.message.answer(text="BTN1")
+
+
+@dp.callback_query(lambda c: c.data == 'btn1')
+async def handle_button_two(callback_query: types.CallbackQuery) -> None:
+    await callback_query.message.answer(text="BTN2")
+
+
+@dp.callback_query(lambda c: c.data == 'btn2')
+async def handle_button_three(callback_query: types.CallbackQuery) -> None:
+    await callback_query.message.answer(text="BTN3")
+
 
 async def main() -> None:
     bot = Bot(BOT_TOKEN, parse_mode=ParseMode.HTML)
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     basicConfig(level=INFO, stream=stdout)
