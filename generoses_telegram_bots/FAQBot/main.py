@@ -5,10 +5,8 @@ from os import getenv
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.enums import ParseMode
-from aiogram.filters import Command, CommandStart
-from aiogram.methods.answer_inline_query import AnswerInlineQuery
+from aiogram.filters import CommandStart
 from aiogram.types import Message
-from aiogram.utils.markdown import hbold
 from dotenv import load_dotenv
 
 from keyboards import inline_kb
@@ -52,10 +50,16 @@ async def handle_button_three(callback_query: types.CallbackQuery) -> None:
 
 
 async def main() -> None:
-    bot = Bot(BOT_TOKEN, parse_mode=ParseMode.HTML)
+    bot = Bot(
+        BOT_TOKEN,
+        parse_mode=ParseMode.HTML
+    )
     await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
-    basicConfig(level=INFO, stream=stdout)
+    basicConfig(
+        level=INFO,
+        stream=stdout
+    )
     run(main())
