@@ -1,29 +1,21 @@
 from asyncio import run
-from logging import basicConfig, INFO
-from sys import stdout
+from logging import INFO, basicConfig
 from os import getenv
+from sys import stdout
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
+from constants import main_menu_buttons
 from dotenv import load_dotenv
-
 from keyboards import inline_kb
-
 
 load_dotenv()
 BOT_TOKEN = getenv("TELEGRAM_TOKEN")
 
 
 dp = Dispatcher()
-
-
-main_menu_buttons = [
-    'Пожертвования',
-    'Еще что-то',
-    'И еще что-то',
-]
 
 
 @dp.message(CommandStart())

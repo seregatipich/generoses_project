@@ -5,9 +5,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from dotenv import load_dotenv
-
 from google_handler import save_data
-
 
 load_dotenv()
 API_TOKEN = os.getenv('TELEGRAM_TOKEN')
