@@ -3,7 +3,7 @@ from logging import basicConfig, INFO
 from sys import stdout
 from os import getenv
 
-from aiogram import Bot, Dispatcher, Router, types
+from aiogram import Bot, Dispatcher, types
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandStart
 from aiogram.methods.answer_inline_query import AnswerInlineQuery
@@ -17,8 +17,8 @@ from keyboards import inline_kb
 load_dotenv()
 BOT_TOKEN = getenv("TELEGRAM_TOKEN")
 
+
 dp = Dispatcher()
-router = Router()
 
 
 main_menu_buttons = [
