@@ -3,13 +3,15 @@ from logging import INFO, basicConfig
 from os import getenv
 from sys import stdout
 
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
 from aiogram.types import Message
-from constants import main_menu_buttons
 from dotenv import load_dotenv
+
+from constants import main_menu_buttons
 from keyboards import inline_kb
+from handlers import welcome, sub_categories, categories
+
 
 load_dotenv()
 BOT_TOKEN = getenv("TELEGRAM_TOKEN")
@@ -18,27 +20,7 @@ BOT_TOKEN = getenv("TELEGRAM_TOKEN")
 dp = Dispatcher()
 
 
-@dp.message(CommandStart())
-async def welcome(message: Message) -> None:
-    await message.answer(
-        f"Привет! Это бот, который поможет вам разобраться в проблеме с GENEROSES. Чтобы начать, выберете пункт меню, который вам нужен",
-        reply_markup=inline_kb(main_menu_buttons, 2)
-    )
 
-
-@dp.callback_query(lambda c: c.data == 'btn0')
-async def handle_button_one(callback_query: types.CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN1")
-
-
-@dp.callback_query(lambda c: c.data == 'btn1')
-async def handle_button_two(callback_query: types.CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN2")
-
-
-@dp.callback_query(lambda c: c.data == 'btn2')
-async def handle_button_three(callback_query: types.CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN3")
 
 
 async def main() -> None:
@@ -46,6 +28,7 @@ async def main() -> None:
         BOT_TOKEN,
         parse_mode=ParseMode.HTML
     )
+    dp.include_routers(categories.rt, sub_categories.rt)
     await dp.start_polling(bot)
 
 
