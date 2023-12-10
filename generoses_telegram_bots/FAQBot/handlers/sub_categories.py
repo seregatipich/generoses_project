@@ -15,13 +15,13 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Информация')
 async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN0_1")
+    await callback_query.message.answer('\n\n'.join(format_subsection_qa_pairs_json('Пожертвования')['Информация о пожертвованиях и благотворительных проектах']))
     await callback_query.answer()
 
 
 @rt.callback_query(lambda c: c.data == 'Технические')
 async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN0_2")
+    await callback_query.message.answer('\n\n'.join(format_subsection_qa_pairs_json('Пожертвования')['Технические вопросы и проблемы']))
     await callback_query.answer()
 
 
