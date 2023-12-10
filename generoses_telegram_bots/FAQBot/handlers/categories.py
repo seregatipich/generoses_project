@@ -1,9 +1,9 @@
 from aiogram import Router
 from aiogram.types import CallbackQuery
 
-from main import bot
+from config.data_handlers import format_subsection_qa_pairs_json
 from keyboards import inline_kb
-from constants import format_subsection_qa_pairs_json
+from bot import bot
 
 
 rt = Router()

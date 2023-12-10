@@ -1,7 +1,6 @@
-from aiogram import types, Router
+from aiogram import Router, types
 
-from constants import format_subsection_qa_pairs_json
-from main import bot
+from config.data_handlers import format_subsection_qa_pairs_json
 from keyboards import inline_kb
 
 
@@ -10,18 +9,7 @@ rt = Router()
 
 @rt.callback_query(lambda c: c.data == 'Управление')
 async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
-    # await bot.edit_message_reply_markup(
-    #     chat_id=callback_query.from_user.id,
-    #     message_id=callback_query.message.message_id,
-    #     reply_markup=inline_kb(
-    #         format_subsection_qa_pairs_json(
-    #             'Пожертвования'
-    #         )[
-    #             'Управление пожертвованиями'
-    #         ],
-    #         2
-    #     )
-    # )
+    await callback_query.message.answer('\n\n'.join(format_subsection_qa_pairs_json('Пожертвования')['Управление пожертвованиями']))
     await callback_query.answer()
 
 

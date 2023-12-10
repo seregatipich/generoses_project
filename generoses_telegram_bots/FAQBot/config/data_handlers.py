@@ -1,10 +1,4 @@
-import json
-
-main_menu_buttons = [
-    'Пожертвования',
-    'Как это работает?',
-    'Участие и волонтерство'
-]
+from json import load
 
 
 def format_subsection_qa_pairs_json(main_section):
@@ -16,10 +10,10 @@ def format_subsection_qa_pairs_json(main_section):
     :return: словарь, где ключи - это подразделы, и списки отформатированных строк вопрос-ответ в качестве значений
     """
 
-    JSON_PATH = 'generoses_telegram_bots/FAQBot/questions-answers.json'
+    from .constants import JSON_PATH
 
     with open(JSON_PATH, 'r', encoding='utf-8') as file:
-        json_data_from_file = json.load(file)
+        json_data_from_file = load(file)
 
     formatted_dict = {}
     for item in json_data_from_file:
@@ -33,8 +27,5 @@ def format_subsection_qa_pairs_json(main_section):
                         formatted_pair = f"Вопрос: {question}\nОтвет: {answer}"
                         formatted_pairs.append(formatted_pair)
                     formatted_dict[subsection] = formatted_pairs
-    
-    return formatted_dict
 
-# print(format_subsection_qa_pairs_json('Пожертвования'))
-# print(list(format_subsection_qa_pairs_json('Пожертвования').keys()))
+    return formatted_dict
