@@ -1,23 +1,27 @@
 from aiogram import Router
 from aiogram.types import CallbackQuery
 
+from main import bot
+from keyboards import inline_kb
+from constants import format_subsection_qa_pairs_json
+
 
 rt = Router()
 
 
-@rt.callback_query(lambda c: c.data == 'btn0')
+@rt.callback_query(lambda c: c.data == 'Пожертвования')
 async def handle_button_one(callback_query: CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN1")
+    await bot.edit_message_reply_markup(chat_id=callback_query.from_user.id,
+                                        message_id=callback_query.message.message_id,
+                                        reply_markup=inline_kb(list(format_subsection_qa_pairs_json('Пожертвования').keys()), 2))
     await callback_query.answer()
 
 
-@rt.callback_query(lambda c: c.data == 'btn1')
+@rt.callback_query(lambda c: c.data == 'Как')
 async def handle_button_two(callback_query: CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN2")
     await callback_query.answer()
 
 
-@rt.callback_query(lambda c: c.data == 'btn2')
+@rt.callback_query(lambda c: c.data == 'Участие')
 async def handle_button_three(callback_query: CallbackQuery) -> None:
-    await callback_query.message.answer(text="BTN3")
     await callback_query.answer()

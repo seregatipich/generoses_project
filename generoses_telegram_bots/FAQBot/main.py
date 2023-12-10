@@ -7,7 +7,6 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv
 
-from keyboards import inline_kb
 from handlers import welcome, sub_categories, categories
 
 
@@ -16,13 +15,13 @@ BOT_TOKEN = getenv("TELEGRAM_TOKEN")
 
 
 dp = Dispatcher()
+bot = Bot(
+    BOT_TOKEN,
+    parse_mode=ParseMode.HTML
+)
 
 
 async def main() -> None:
-    bot = Bot(
-        BOT_TOKEN,
-        parse_mode=ParseMode.HTML
-    )
     dp.include_routers(categories.rt, sub_categories.rt, welcome.rt)
     await dp.start_polling(bot)
 

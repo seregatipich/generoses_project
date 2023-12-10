@@ -1,30 +1,40 @@
-main_menu_buttons = {
-    'Пожертвования': [
-        "Управление пожертвованиями",
-        "Информация о пожертвованиях и благотворительных проектах",
-        "Технические вопросы и проблемы"
-    ],
+import json
 
-    'Как это работает?': [],
-    'Участие и волонтерство': [],
-}
+main_menu_buttons = [
+    'Пожертвования',
+    'Как это работает?',
+    'Участие и волонтерство'
+]
 
 
-def format_qa_pairs_dict(data, section_key):
+def format_subsection_qa_pairs_json(main_section):
     """
-    Формирует словарь, где ключ - это название раздела, а значение - список строк с вопросами и ответами.
+    Формирует словарь, где каждый ключ - это подраздел внутри основного раздела, а значение - список строк с вопросами и ответами.
 
-    :param data: словарь с данными
-    :param section_key: ключ для выбора соответствующего раздела
-    :return: словарь с ключом, указывающим на раздел, и списком отформатированных строк вопрос-ответ
+    :param data: JSON документ
+    :param main_section: основной раздел для поиска подразделов
+    :return: словарь, где ключи - это подразделы, и списки отформатированных строк вопрос-ответ в качестве значений
     """
-    formatted_pairs = []
-    for section in data:
-        if section_key in section:
-            for qa in section[section_key]:
-                question = qa["question"]
-                answer = qa["answer"]
-                formatted_pair = f"Вопрос: {question}\nОтвет: {answer}"
-                formatted_pairs.append(formatted_pair)
 
-    return {section_key: formatted_pairs}
+    JSON_PATH = 'generoses_telegram_bots/FAQBot/questions-answers.json'
+
+    with open(JSON_PATH, 'r', encoding='utf-8') as file:
+        json_data_from_file = json.load(file)
+
+    formatted_dict = {}
+    for item in json_data_from_file:
+        if main_section in item:
+            for subsections in item[main_section]:
+                for subsection, qa_pairs in subsections.items():
+                    formatted_pairs = []
+                    for pair in qa_pairs:
+                        question = pair["question"]
+                        answer = pair["answer"]
+                        formatted_pair = f"Вопрос: {question}\nОтвет: {answer}"
+                        formatted_pairs.append(formatted_pair)
+                    formatted_dict[subsection] = formatted_pairs
+    
+    return formatted_dict
+
+# print(format_subsection_qa_pairs_json('Пожертвования'))
+# print(list(format_subsection_qa_pairs_json('Пожертвования').keys()))
