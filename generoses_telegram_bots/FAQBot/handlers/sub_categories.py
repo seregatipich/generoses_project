@@ -6,6 +6,11 @@ from config.db_handlers import *
 from utils.bot import bot
 from utils.keyboards import inline_kb
 
+from config import constants
+
+email = constants.EMAIL_ADRESS
+failure_message = f'Мне жаль, что мне не удалось решить вашу проблему. Свяжитесь со службой поддержки, и наш сотрудник обязательно решит ваш вопрос!\n{email}'
+#we might need to move the message somewhere else
 
 rt = Router()
 
@@ -66,7 +71,7 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 
@@ -80,7 +85,7 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 
@@ -94,7 +99,7 @@ async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 # Конец хэндлеров для категории "Пожертвования"
@@ -110,7 +115,7 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 
@@ -124,7 +129,7 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 
@@ -139,7 +144,7 @@ async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 # Конец хэндлеров для категории "Как это работает?"
@@ -155,7 +160,7 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 
@@ -169,7 +174,7 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 
@@ -183,7 +188,7 @@ async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
     if processing_result == False:
         await callback_query.message.answer('Чем я могу помочь?', reply_markup=inline_kb(main_menu_buttons, 2))
     elif processing_result == True:
-        await callback_query.message.answer('Электронная почта')
+        await callback_query.message.answer(failure_message)
 
     await callback_query.answer()
 # Конец хэндлеров для категории "Участие и Волонтерство"
