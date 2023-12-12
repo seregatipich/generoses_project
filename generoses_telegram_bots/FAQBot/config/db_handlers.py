@@ -3,20 +3,26 @@ import sqlite3
 
 def insert_user_with_zero_clicks(user_id: int) -> None:
     """
-    Inserts a user record into the 'users' table in the 'mydatabase.db' SQLite database
-    with zero clicks.
+    Inserts a new user record into the 'users' table in the database with zero clicks.
 
-    :param user_id: User identifier to be recorded in the table.
+    This function connects to a SQLite database named 'mydatabase.db' and ensures that the 'users' 
+    table exists. It then attempts to insert a new user record with the specified user ID and 
+    initializes their click count to zero. If a record with the same user ID already exists, 
+    an IntegrityError is caught and printed. The database connection is committed and closed 
+    irrespective of the result.
 
-    Connects to 'mydatabase.db', creates a 'users' table if it doesn't exist,
-    and inserts the provided user_id with zero clicks into the table.
+    Args:
+        user_id (int): The unique identifier for the new user to be inserted.
+
+    Returns:
+        None: This function does not return anything.
     """
-    db_name = 'mydatabase.db'
+    from .constants import DB_NAME
 
-    conn = sqlite3.connect(db_name)
+    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
 
-    try: 
+    try:
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 user_id INTEGER PRIMARY KEY,
@@ -33,16 +39,25 @@ def insert_user_with_zero_clicks(user_id: int) -> None:
         conn.close()
 
 
-def increment_clicks(user_id: int):
+def increment_clicks(user_id: int) -> None:
     """
-    Increments the number of clicks by one for a given user_id in the 'users' table 
-    of the 'mydatabase.db' SQLite database. The user_id is provided as a string.
+    Increments the click count for a specified user in the 'users' table of the database.
 
-    :param user_id: User identifier as an integer.
+    This function establishes a connection to a SQLite database named 'mydatabase.db'. It checks 
+    if a user with the given user_id exists in the 'users' table. If the user exists, their 'clicks' 
+    count is incremented by 1. If the user does not exist, a new record for the user is created with 
+    an initial 'clicks' count of 1. After executing the appropriate query, the database connection 
+    is committed and closed.
+
+    Args:
+        user_id (int): The unique identifier of the user whose click count is to be incremented.
+
+    Returns:
+        None: This function does not return anything.
     """
-    db_name = 'mydatabase.db'
+    from .constants import DB_NAME
 
-    conn = sqlite3.connect(db_name)
+    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
 
     # Check if the user exists
@@ -62,17 +77,24 @@ def increment_clicks(user_id: int):
 
 def reset_clicks_if_over_three(user_id: int) -> bool:
     """
-    Checks the number of clicks for a given user_id in the 'users' table of 
-    the 'mydatabase.db' SQLite database. If the number of clicks is greater 
-    than three, it resets the clicks to zero and returns True. Otherwise, 
-    it returns False.
+    Resets the click count to zero for a specified user if their current count is three or more.
 
-    :param user_id: User identifier to check and potentially reset clicks.
-    :return: True if clicks were reset, False otherwise.
+    This function connects to a SQLite database named 'mydatabase.db' and retrieves the current 
+    click count for a user with the given user_id from the 'users' table. If the user's click count 
+    is three or more, it resets the count to zero. The function commits the change to the database 
+    and then closes the connection. It returns True if the click count was reset, and False if the 
+    count was not reset (either because the user's count was less than three or the user was not 
+    found).
+
+    Args:
+        user_id (int): The unique identifier of the user whose click count is checked and potentially reset.
+
+    Returns:
+        bool: True if the user's click count was reset, False otherwise.
     """
-    db_name = 'mydatabase.db'
+    from .constants import DB_NAME
 
-    conn = sqlite3.connect(db_name)
+    conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
 
     # Check current clicks for the user

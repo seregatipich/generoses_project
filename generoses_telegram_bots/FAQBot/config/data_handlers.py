@@ -1,15 +1,22 @@
 from json import load
 
 
-def format_subsection_qa_pairs_json(main_section):
+def format_subsection_qa_pairs_json(main_section: str) -> dict:
     """
-    Формирует словарь, где каждый ключ - это подраздел внутри основного раздела, а значение - список строк с вопросами и ответами.
+    Reads a JSON file and formats the question-answer pairs for a specified main section.
 
-    :param data: JSON документ
-    :param main_section: основной раздел для поиска подразделов
-    :return: словарь, где ключи - это подразделы, и списки отформатированных строк вопрос-ответ в качестве значений
+    This function opens a JSON file defined by the 'JSON_PATH' constant. It then iterates through 
+    the data to find and format question-answer pairs related to a specified main section. The 
+    function formats these pairs into a readable string format and groups them by their subsections.
+
+    Args:
+        main_section (str): The main section in the JSON file for which the question-answer pairs 
+                            are to be formatted.
+
+    Returns:
+        dict: A dictionary where each key is a subsection under the main section, and each value is a 
+              list of formatted question-answer strings corresponding to that subsection.
     """
-
     from .constants import JSON_PATH
 
     with open(JSON_PATH, 'r', encoding='utf-8') as file:

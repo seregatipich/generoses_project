@@ -3,8 +3,8 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message
 
 from config.constants import main_menu_buttons
-from keyboards import inline_kb
 from config.db_handlers import insert_user_with_zero_clicks
+from utils.keyboards import inline_kb
 
 
 rt = Router()
