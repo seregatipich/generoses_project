@@ -2,8 +2,8 @@ from asyncio import run
 from logging import INFO, basicConfig
 from sys import stdout
 
+from bot import bot, dp
 from handlers import categories, sub_categories, welcome
-from bot import dp, bot
 
 
 async def main() -> None:

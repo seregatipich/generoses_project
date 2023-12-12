@@ -4,4 +4,4 @@ main_menu_buttons = [
     'Участие и волонтерство'
 ]
 
-JSON_PATH = 'generoses_telegram_bots/FAQBot/questions-answers.json'
+JSON_PATH = 'generoses_telegram_bots/FAQBot/config/questions-answers.json'
