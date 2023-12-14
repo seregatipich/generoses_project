@@ -1,4 +1,4 @@
-import sqlite3
+from sqlite3 import connect, IntegrityError
 
 
 def insert_user_with_zero_clicks(user_id: int) -> None:
@@ -19,7 +19,7 @@ def insert_user_with_zero_clicks(user_id: int) -> None:
     """
     from .constants import DB_NAME
 
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect(DB_NAME)
     cursor = conn.cursor()
 
     try:
@@ -31,8 +31,10 @@ def insert_user_with_zero_clicks(user_id: int) -> None:
         ''')
 
         cursor.execute(
-            'INSERT INTO users (user_id, clicks) VALUES (?, 0)', (user_id,))
-    except sqlite3.IntegrityError as error:
+            'INSERT INTO users (user_id, clicks) VALUES (?, 0)',
+            (user_id,)
+        )
+    except IntegrityError as error:
         print(error)
     finally:
         conn.commit()
@@ -57,19 +59,26 @@ def increment_clicks(user_id: int) -> None:
     """
     from .constants import DB_NAME
 
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect(DB_NAME)
     cursor = conn.cursor()
 
     # Check if the user exists
-    cursor.execute('SELECT * FROM users WHERE user_id = ?', (user_id,))
+    cursor.execute(
+        'SELECT * FROM users WHERE user_id = ?',
+        (user_id,)
+    )
     if cursor.fetchone():
         # Increment clicks
         cursor.execute(
-            'UPDATE users SET clicks = clicks + 1 WHERE user_id = ?', (user_id,))
+            'UPDATE users SET clicks = clicks + 1 WHERE user_id = ?',
+            (user_id,)
+        )
     else:
         # If user does not exist, insert new user with 1 click
         cursor.execute(
-            'INSERT INTO users (user_id, clicks) VALUES (?, 1)', (user_id,))
+            'INSERT INTO users (user_id, clicks) VALUES (?, 1)',
+            (user_id,)
+        )
 
     conn.commit()
     conn.close()
@@ -94,17 +103,22 @@ def reset_clicks_if_over_three(user_id: int) -> bool:
     """
     from .constants import DB_NAME
 
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect(DB_NAME)
     cursor = conn.cursor()
 
     # Check current clicks for the user
-    cursor.execute('SELECT clicks FROM users WHERE user_id = ?', (user_id,))
+    cursor.execute(
+        'SELECT clicks FROM users WHERE user_id = ?',
+        (user_id,)
+    )
     result = cursor.fetchone()
 
     if result and result[0] >= 3:
         # Reset clicks if they are over three
         cursor.execute(
-            'UPDATE users SET clicks = 0 WHERE user_id = ?', (user_id,))
+            'UPDATE users SET clicks = 0 WHERE user_id = ?',
+            (user_id,)
+        )
         conn.commit()
         conn.close()
         return True

@@ -23,7 +23,11 @@ async def main() -> None:
         - Routers for categories, sub-categories, and welcome messages must be defined in their 
           respective modules.
     """
-    dp.include_routers(categories.rt, sub_categories.rt, welcome.rt)
+    dp.include_routers(
+        categories.rt,
+        sub_categories.rt,
+        welcome.rt
+    )
     await dp.start_polling(bot)
 
 
