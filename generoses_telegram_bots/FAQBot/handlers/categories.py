@@ -24,6 +24,7 @@ async def handle_button_one(callback_query: CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Как')
 async def handle_button_two(callback_query: CallbackQuery) -> None:
+    
     await bot.edit_message_reply_markup(
         chat_id=callback_query.from_user.id,
         message_id=callback_query.message.message_id,

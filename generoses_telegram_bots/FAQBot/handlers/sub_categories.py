@@ -1,6 +1,6 @@
 from aiogram import Router, types
 
-from config.constants import main_menu_buttons, FAILURE_MESSAGE
+from config.constants import main_menu_buttons, FAILURE_MESSAGE, CATEGORIES
 from config.data_handlers import format_subsection_qa_pairs_json, manage_user_clicks
 from utils.bot import bot
 from utils.keyboards import inline_kb
@@ -12,8 +12,8 @@ rt = Router()
 # Начало хэндлеров для категории "Пожертвования"
 @rt.callback_query(lambda c: c.data == 'Управление')
 async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
-    category = 'Пожертвования'
-    sub_category = 'Управление пожертвованиями'
+    category = list(CATEGORIES.keys())[0]
+    sub_category = CATEGORIES[category][0]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -39,8 +39,8 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Информация')
 async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
-    category = 'Пожертвования'
-    sub_category = 'Информация о пожертвованиях и благотворительных проектах'
+    category = list(CATEGORIES.keys())[0]
+    sub_category = CATEGORIES[category][1]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -67,8 +67,8 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Технические')
 async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
-    category = 'Пожертвования'
-    sub_category = 'Технические вопросы и проблемы'
+    category = list(CATEGORIES.keys())[0]
+    sub_category = CATEGORIES[category][2]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -97,8 +97,8 @@ async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
 # Начало хэндлеров для категории "Как это работает?"
 @rt.callback_query(lambda c: c.data == 'Общий')
 async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
-    category = 'Как это работает?'
-    sub_category = 'Общий Процесс и Механизмы'
+    category = list(CATEGORIES.keys())[1]
+    sub_category = CATEGORIES[category][0]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -123,8 +123,8 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Руководства')
 async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
-    category = 'Как это работает?'
-    sub_category = 'Руководства и Инструкции'
+    category = list(CATEGORIES.keys())[1]
+    sub_category = CATEGORIES[category][1]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -150,8 +150,8 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Политика')
 async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
-    category = 'Как это работает?'
-    sub_category = 'Политика и Принципы'
+    category = list(CATEGORIES.keys())[1]
+    sub_category = CATEGORIES[category][2]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -179,8 +179,8 @@ async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
 # Начало хэндлеров для категории "Участие и Волонтерство"
 @rt.callback_query(lambda c: c.data == 'Способы')
 async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
-    category = 'Участие и Волонтерство'
-    sub_category = 'Способы Участия'
+    category = list(CATEGORIES.keys())[2]
+    sub_category = CATEGORIES[category][0]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -206,8 +206,8 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Преимущества')
 async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
-    category = 'Участие и Волонтерство'
-    sub_category = 'Преимущества и Возможности'
+    category = list(CATEGORIES.keys())[2]
+    sub_category = CATEGORIES[category][1]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
@@ -233,8 +233,8 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Поддержка')
 async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
-    category = 'Участие и Волонтерство'
-    sub_category = 'Поддержка и Ресурсы'
+    category = list(CATEGORIES.keys())[2]
+    sub_category = CATEGORIES[category][2]
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
         message_id=callback_query.message.message_id,
