@@ -179,7 +179,7 @@ async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
 # Начало хэндлеров для категории "Участие и Волонтерство"
 @rt.callback_query(lambda c: c.data == 'Способы')
 async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
-    category = 'Как это работает?'
+    category = 'Участие и Волонтерство'
     sub_category = 'Способы Участия'
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
@@ -206,7 +206,7 @@ async def handle_button_one_sub0(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Преимущества')
 async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
-    category = 'Как это работает?'
+    category = 'Участие и Волонтерство'
     sub_category = 'Преимущества и Возможности'
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
@@ -233,7 +233,7 @@ async def handle_button_one_sub1(callback_query: types.CallbackQuery) -> None:
 
 @rt.callback_query(lambda c: c.data == 'Поддержка')
 async def handle_button_one_sub2(callback_query: types.CallbackQuery) -> None:
-    category = 'Как это работает?'
+    category = 'Участие и Волонтерство'
     sub_category = 'Поддержка и Ресурсы'
     await bot.edit_message_text(
         chat_id=callback_query.message.chat.id,
